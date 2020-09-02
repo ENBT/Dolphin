@@ -25,12 +25,20 @@ public class Main
 		DataMigrator.CreateTable(conn, testScoresPath, "TestScores");
 		DataMigrator.CreateTable(conn, retakeScorePath, "RetakeScores");
 		
+		MyTable studentInfo = new MyTable(studentInfoPath);
+		MyTable testScores = new MyTable(testScoresPath);
+		MyTable retakeTestScores = new MyTable(retakeScorePath);
+		
+		
 		int averageScore = DataParser.FindAverageScore(conn);
+		int averageScore2 = DataParser.FindAverageScore(testScores,  retakeTestScores);
 		String[] femaleCompSciMajorIds = DataParser.FindFemaleComputerScienceMajors(conn);
+		String[] femaleCompSciMajorIds2 = DataParser.FindFemaleComputeScienceMajors(studentInfo);
 			
 		DataMigrator.Disconnect(conn);
 		
 		CreateJSONRequest(averageScore, femaleCompSciMajorIds);
+		CreateJSONRequest(averageScore2, femaleCompSciMajorIds2);
 	}
 	
 	public static void CreateJSONRequest(int avScore, String[] fMajors)
