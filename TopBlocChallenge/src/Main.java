@@ -1,5 +1,4 @@
 import java.sql.Connection;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -13,31 +12,32 @@ public class Main
 {
 	public static void main(String[] args)
 	{	
-		String dbPath = ".\\Resources\\testing.db";
+//		String dbPath = ".\\Resources\\testing.db";
+
+//		Connection conn;
+//		conn = DataMigrator.Connect(dbPath);
+		
+//		DataMigrator.CreateTable(conn, studentInfoPath, "StudentInfo");	
+//		DataMigrator.CreateTable(conn, testScoresPath, "TestScores");
+//		DataMigrator.CreateTable(conn, retakeScorePath, "RetakeScores");
+
+//		int averageScore = DataParser.FindAverageScore(conn);
+//		String[] femaleCompSciMajorIds = DataParser.FindFemaleComputerScienceMajors(conn);
+			
+//		DataMigrator.Disconnect(conn);
+		
+//		CreateJSONRequest(averageScore, femaleCompSciMajorIds);
+		
 		String studentInfoPath = ".\\Resources\\Student Info.xlsx";
 		String testScoresPath = ".\\Resources\\Test Scores.xlsx";
 		String retakeScorePath = ".\\Resources\\Test Retake Scores.xlsx";
-
-		Connection conn;
-		conn = DataMigrator.Connect(dbPath);
-		
-		DataMigrator.CreateTable(conn, studentInfoPath, "StudentInfo");	
-		DataMigrator.CreateTable(conn, testScoresPath, "TestScores");
-		DataMigrator.CreateTable(conn, retakeScorePath, "RetakeScores");
 		
 		MyTable studentInfo = new MyTable(studentInfoPath);
 		MyTable testScores = new MyTable(testScoresPath);
 		MyTable retakeTestScores = new MyTable(retakeScorePath);
 		
-		
-		int averageScore = DataParser.FindAverageScore(conn);
 		int averageScore2 = DataParser.FindAverageScore(testScores,  retakeTestScores);
-		String[] femaleCompSciMajorIds = DataParser.FindFemaleComputerScienceMajors(conn);
 		String[] femaleCompSciMajorIds2 = DataParser.FindFemaleComputeScienceMajors(studentInfo);
-			
-		DataMigrator.Disconnect(conn);
-		
-		CreateJSONRequest(averageScore, femaleCompSciMajorIds);
 		CreateJSONRequest(averageScore2, femaleCompSciMajorIds2);
 	}
 	
